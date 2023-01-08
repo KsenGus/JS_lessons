@@ -4,12 +4,8 @@ let money = prompt("Ваш бюджет на месяц?"),
 let appData = {
     budget: money,
     timeData: time,
-    expenses: {
-        
-    },
-    optionalExpenses:{
-
-    },
+    expenses: {},
+    optionalExpenses:{},
     income: [],
     savings: false
 };
@@ -18,33 +14,28 @@ let i = 0;
 while(i < 2){
     let type = prompt("Введите обязательную статью расходов в этом месяце"),
     cost = prompt("Во сколько обойдется?");
-    ((typeof(type) === 'string') && (typeof(type) != null) && (typeof(cost) === 'number') && (typeof(cost) != null)
-    && (type != '') && (cost != '') && (type.length < 50)) ?
-        
-        appData.expenses[type] = cost :
-    
+    if(typeof(type) === 'string' && typeof(type) != null && typeof(cost) != null
+    && (type != '') && (cost != '') && (type.length < 50)){
+        console.log("Done");
+        appData.expenses[type] = cost;
+    } else {
         i --;
-    i++
-    
+    }
+    i++;
 }
 
-let moneyPerDay = appData.budget / 30;
-alert("Ежедневный бюджет: " + moneyPerDay);
+appData.moneyPerDay = appData.budget / 30;
 
-switch(appData.moneyPerDay){
-    case(appData.moneyPerDay <= 400):
-        console.log("Ваш достаток ниже прожиточного минимума");
-        break;
-    
-    case(appData.moneyPerDay > 400 && appData.moneyPerDay <= 2000):
-        console.log("У Вас средний уровень достатка");
-        break;
-    
-    case(appData.moneyPerDay > 2000):
-        console.log("Вам повезло с достатком :)");
-        break;
-    
-    default:
-        console.log("Упс... Похоже возникла ошибка");
-    
+
+alert ("Бюджет на 1 день составляет " + appData.moneyPerDay + "руб.");
+
+
+if (appData.moneyPerDay < 100) {
+    console.log ("Это минимальный уровень достатка!");
+} else if (appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
+    console.log ("Это средний уровень достатка!");
+} else if (appData.moneyPerDay > 2000) {
+    console.log ("Это высокий уровень достатка!");
+} else {
+    console.log ("Произошла ошибка");
 }
